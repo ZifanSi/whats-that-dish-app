@@ -20,4 +20,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/t_users.json
+    - assets/data/recipes.json
     
