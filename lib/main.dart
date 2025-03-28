@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/login_page.dart';
 import 'screens/experts_page.dart';
 import 'screens/ingredients_analysis.dart';
+import 'screens/recipe_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const LoginPage(),
         '/experts': (context) => const ExpertsPage(),
         '/ingredients': (context) => const IngredientsAnalysisPage(),
+        '/recipe_manager': (context) => const AddRecipePage()
       },
     );
   }
