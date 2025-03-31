@@ -5,6 +5,7 @@ import 'screens/experts_page.dart';
 import 'screens/ingredients_analysis.dart';
 import 'screens/recipe_manager.dart';
 import 'screens/image_recognition.dart';
+import 'screens/create_account_page.dart';
 
 Future<void> main() async {
   // Loading the .env file
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/ingredients': (context) => IngredientsAnalysisPage(),
         '/recipe_manager': (context) => AddRecipePage(),
         '/image_recognition': (context) => ImageRecognitionPage(),
+        '/create_account': (context) => const CreateAccountPage(),
       },
     );
   }
