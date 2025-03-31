@@ -65,6 +65,15 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(onPressed: _login, child: const Text('Login')),
             const SizedBox(height: 20),
             Text(_message, style: const TextStyle(fontSize: 16)),
+            //debug button for navigating to image recognition:
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/image_recognition');
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              child: const Text('Go to Image Recognition (Debug)'),
+            ),            
           ],
         ),
       ),

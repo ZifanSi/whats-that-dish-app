@@ -10,6 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  http: ^1.2.1
+  flutter_dotenv: ^5.0.2
+  file_picker: ^6.1.1
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -21,4 +25,5 @@ flutter:
   assets:
     - assets/data/t_users.json
     - assets/data/recipes.json
+    - .env
     
