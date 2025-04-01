@@ -10,10 +10,11 @@ class IngredientsAnalysisPage extends StatelessWidget {
     return List<Map<String, dynamic>>.from(json.decode(jsonString));
   }
 
-  String predictMeal(String ingredientsInput, List<Map<String, dynamic>> recipes) {
+  (String, double) predictMeal(String ingredientsInput, List<Map<String, dynamic>> recipes) {
     List<String> inputIngredients = ingredientsInput.toLowerCase().split(',').map((e) => e.trim()).toList();
     
     String bestMatch = "No matching recipe found";
+    double confidence = 0.0;
     int maxMatchCount = 0;
 
     for (var recipe in recipes) {
@@ -23,10 +24,11 @@ class IngredientsAnalysisPage extends StatelessWidget {
       if (matchCount > maxMatchCount) {
         maxMatchCount = matchCount;
         bestMatch = recipe['meal_name'];
+        confidence = matchCount / recipeIngredients.length;
       }
     }
 
-    return bestMatch;
+    return (bestMatch, confidence);
   }
 
   @override
@@ -63,7 +65,7 @@ class IngredientsAnalysisPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     String input = ingredientsController.text;
-                    String result = predictMeal(input, recipes);
+                    var (result, confidence)  = predictMeal(input, recipes);
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
