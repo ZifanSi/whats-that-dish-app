@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:whats_that_dish_app/screens/blackboard.dart';
 
 class ImageRecognitionPage extends StatefulWidget {
   const ImageRecognitionPage({super.key});
