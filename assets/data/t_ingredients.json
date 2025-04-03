@@ -1,6 +1,14 @@
 [
   {
     "ingredients": [
+      "pepperoni",
+      "tomato sauce",
+      "pizza dough"
+    ],
+    "name": "Pepperoni Pizza"
+  },
+  {
+    "ingredients": [
       "tomato",
       "mozzarella",
       "basil"
