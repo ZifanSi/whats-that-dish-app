@@ -4,7 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:whats_that_dish_app/screens/blackboard.dart';
 
 class ImageRecognitionPage extends StatefulWidget {
   const ImageRecognitionPage({super.key});
@@ -21,8 +20,9 @@ class _ImageRecognitionPageState extends State<ImageRecognitionPage> {
 
   // Function to pick an image from the gallery
   Future<void> _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
@@ -82,10 +82,10 @@ class _ImageRecognitionPageState extends State<ImageRecognitionPage> {
           'inputs': [
             {
               'data': {
-                'image': {'base64': base64Image}
-              }
-            }
-          ]
+                'image': {'base64': base64Image},
+              },
+            },
+          ],
         }),
       );
 
@@ -128,9 +128,7 @@ class _ImageRecognitionPageState extends State<ImageRecognitionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dish Recognition'),
-      ),
+      appBar: AppBar(title: const Text('Dish Recognition')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -144,13 +142,10 @@ class _ImageRecognitionPageState extends State<ImageRecognitionPage> {
             const SizedBox(height: 20),
             _image == null
                 ? const Text(
-                    'No image selected',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  )
-                : Image.file(
-                    _image!,
-                    height: 200,
-                  ),
+                  'No image selected',
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                )
+                : Image.file(_image!, height: 200),
             const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: _pickImage,
@@ -159,18 +154,22 @@ class _ImageRecognitionPageState extends State<ImageRecognitionPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 12.0),
+                  horizontal: 20.0,
+                  vertical: 12.0,
+                ),
               ),
             ),
             const SizedBox(height: 20),
             _isLoading
                 ? const CircularProgressIndicator() // Show loading indicator while processing
                 : Text(
-                    _result,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                  _result,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
+                ),
           ],
         ),
       ),
