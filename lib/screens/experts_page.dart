@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:dish_app/screens/experts/image.dart';
 import 'package:dish_app/screens/experts/text.dart';
 import 'package:dish_app/screens/experts/ingredient.dart';
+import 'package:dish_app/screens/experts/blackboard.dart'; // Add this line
 
 class ExpertsPage extends StatelessWidget {
   const ExpertsPage({super.key});
+
+  // Mocked expert results (replace with shared state later)
+  final String imageResult = 'Dish: Pepperoni Pizza';
+  final String textResult = 'Dish: Cheese Pizza';
+  final String ingredientResult = 'Dish: Margherita Pizza';
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +50,23 @@ class ExpertsPage extends StatelessWidget {
                 );
               },
               child: const Text('🥗 Ingredient Match Expert'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (_) => BlackboardPage(
+                          imageResult: imageResult,
+                          textResult: textResult,
+                          ingredientResult: ingredientResult,
+                        ),
+                  ),
+                );
+              },
+              child: const Text('🧠 Show Blackboard Result'),
             ),
           ],
         ),

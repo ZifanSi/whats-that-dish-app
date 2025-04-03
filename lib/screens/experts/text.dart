@@ -31,7 +31,7 @@ class _TextExpertPageState extends State<TextExpertPage> {
       if (desc.contains(input)) {
         setState(() {
           _isLoading = false;
-          _result = 'Dish: ${dish['name']}\nConfidence: 100%';
+          _result = 'Dish: ${dish['name']}\nConfidence: 80%';
         });
         return;
       }
