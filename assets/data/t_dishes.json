@@ -1,0 +1,82 @@
+[
+    {
+      "name": "Pepperoni Pizza",
+      "description": "Cheesy flatbread topped with tomato sauce and pepperoni."
+    },
+    {
+      "name": "Caesar Salad",
+      "description": "Romaine lettuce with Caesar dressing, croutons, and Parmesan."
+    },
+    {
+      "name": "Sushi",
+      "description": "Rice rolls with seaweed, raw fish, and vegetables."
+    },
+    {
+      "name": "Spaghetti Bolognese",
+      "description": "Pasta with tomato and minced beef sauce."
+    },
+    {
+      "name": "Chicken Tikka Masala",
+      "description": "Chicken in a spiced tomato cream sauce."
+    },
+    {
+      "name": "Ramen",
+      "description": "Japanese noodle soup with pork, egg, and broth."
+    },
+    {
+      "name": "Fried Chicken",
+      "description": "Crispy fried chicken pieces."
+    },
+    {
+      "name": "Pho",
+      "description": "Vietnamese soup with beef and rice noodles."
+    },
+    {
+      "name": "Grilled Cheese Sandwich",
+      "description": "Toasted bread with melted cheese."
+    },
+    {
+      "name": "Mac and Cheese",
+      "description": "Creamy cheese pasta dish."
+    },
+    {
+      "name": "Tacos",
+      "description": "Corn tortillas filled with meat, lettuce, and salsa."
+    },
+    {
+      "name": "Lasagna",
+      "description": "Layered pasta with meat, tomato sauce, and cheese."
+    },
+    {
+      "name": "Pad Thai",
+      "description": "Thai stir-fried noodles with peanuts and shrimp."
+    },
+    {
+      "name": "Burger",
+      "description": "Grilled beef patty in a bun with toppings."
+    },
+    {
+      "name": "Burrito",
+      "description": "Tortilla wrapped around rice, beans, and meat."
+    },
+    {
+      "name": "Chow Mein",
+      "description": "Stir-fried noodles with vegetables and meat."
+    },
+    {
+      "name": "Gnocchi",
+      "description": "Soft potato dumplings served with sauce."
+    },
+    {
+      "name": "Pancakes",
+      "description": "Fluffy breakfast cakes served with syrup."
+    },
+    {
+      "name": "French Toast",
+      "description": "Bread soaked in egg and fried, topped with syrup."
+    },
+    {
+      "name": "Falafel",
+      "description": "Fried chickpea balls served with pita and sauce."
+    }
+  ]

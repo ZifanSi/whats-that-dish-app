@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,9 +16,12 @@ class ExpertsPage extends StatefulWidget {
 class _ExpertsPageState extends State<ExpertsPage> {
   File? _image;
   String _result = '';
+  String _textResult = '';
   bool _isLoading = false;
+  bool _isTextLoading = false;
 
   final ImagePicker _picker = ImagePicker();
+  final TextEditingController _textController = TextEditingController();
 
   Future<void> _pickImage(ImageSource source) async {
     final XFile? pickedFile = await _picker.pickImage(source: source);
@@ -100,16 +104,68 @@ class _ExpertsPageState extends State<ExpertsPage> {
     }
   }
 
+  Future<void> _analyzeTextDescription() async {
+    final input = _textController.text.trim().toLowerCase();
+    if (input.isEmpty) {
+      setState(() => _textResult = 'Please enter a dish description.');
+      return;
+    }
+
+    setState(() {
+      _isTextLoading = true;
+      _textResult = '';
+    });
+
+    try {
+      final jsonStr = await rootBundle.loadString('assets/data/t_dishes.json');
+      final List<dynamic> dishes = jsonDecode(jsonStr);
+
+      String bestMatch = '';
+      int bestScore = 0;
+
+      for (var dish in dishes) {
+        final description = (dish['description'] as String).toLowerCase();
+        int score = 0;
+
+        for (final word in input.split(' ')) {
+          if (description.contains(word)) {
+            score++;
+          }
+        }
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = dish['name'];
+        }
+      }
+
+      setState(() {
+        _isTextLoading = false;
+        if (bestMatch.isNotEmpty) {
+          _textResult = 'Matched Dish: $bestMatch\nMatch Score: $bestScore';
+        } else {
+          _textResult = 'No matching dish found.';
+        }
+      });
+    } catch (e) {
+      setState(() {
+        _isTextLoading = false;
+        _textResult = 'Error reading dish data: $e';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Experts')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            // ==== IMAGE ANALYSIS ====
             const Text(
-              'Image Recognition Expert',
+              '📷 Image Recognition Expert',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -143,6 +199,35 @@ class _ExpertsPageState extends State<ExpertsPage> {
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
+                ),
+            const Divider(height: 40),
+
+            // ==== TEXT ANALYSIS ====
+            const Text(
+              '📝 Text Input Expert',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _textController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Type a short description of the dish...',
+              ),
+              maxLines: 3,
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: _analyzeTextDescription,
+              child: const Text('Analyze Text Description'),
+            ),
+            const SizedBox(height: 10),
+            _isTextLoading
+                ? const CircularProgressIndicator()
+                : Text(
+                  _textResult,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 16),
                 ),
           ],
         ),
