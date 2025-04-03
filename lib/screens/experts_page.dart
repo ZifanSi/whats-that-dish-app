@@ -17,11 +17,74 @@ class _ExpertsPageState extends State<ExpertsPage> {
   File? _image;
   String _result = '';
   String _textResult = '';
+  String _ingredientResult = '';
   bool _isLoading = false;
   bool _isTextLoading = false;
+  bool _isIngredientLoading = false;
 
   final ImagePicker _picker = ImagePicker();
   final TextEditingController _textController = TextEditingController();
+
+  List<String> _availableIngredients = [];
+  List<String> _selectedIngredients = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadIngredients();
+  }
+
+  Future<void> _loadIngredients() async {
+    final jsonStr = await rootBundle.loadString(
+      'assets/data/t_ingredients.json',
+    );
+    final List<dynamic> data = jsonDecode(jsonStr);
+    final Set<String> ingredients = {};
+
+    for (var item in data) {
+      for (var ing in item['ingredients']) {
+        ingredients.add(ing.toString());
+      }
+    }
+
+    setState(() {
+      _availableIngredients = ingredients.toList()..sort();
+    });
+  }
+
+  Future<void> _analyzeIngredientSelection() async {
+    setState(() {
+      _isIngredientLoading = true;
+      _ingredientResult = '';
+    });
+
+    final jsonStr = await rootBundle.loadString(
+      'assets/data/t_ingredients.json',
+    );
+    final List<dynamic> dishes = jsonDecode(jsonStr);
+
+    String bestMatch = '';
+    int highestMatch = 0;
+
+    for (var dish in dishes) {
+      final List<dynamic> ingredients = dish['ingredients'];
+      int matches =
+          ingredients.where((i) => _selectedIngredients.contains(i)).length;
+
+      if (matches > highestMatch) {
+        highestMatch = matches;
+        bestMatch = dish['name'];
+      }
+    }
+
+    setState(() {
+      _isIngredientLoading = false;
+      _ingredientResult =
+          bestMatch.isNotEmpty
+              ? 'Matched Dish: $bestMatch\nMatch Score: $highestMatch'
+              : 'No matching dish found.';
+    });
+  }
 
   Future<void> _pickImage(ImageSource source) async {
     final XFile? pickedFile = await _picker.pickImage(source: source);
@@ -141,11 +204,10 @@ class _ExpertsPageState extends State<ExpertsPage> {
 
       setState(() {
         _isTextLoading = false;
-        if (bestMatch.isNotEmpty) {
-          _textResult = 'Matched Dish: $bestMatch\nMatch Score: $bestScore';
-        } else {
-          _textResult = 'No matching dish found.';
-        }
+        _textResult =
+            bestMatch.isNotEmpty
+                ? 'Matched Dish: $bestMatch\nMatch Score: $bestScore'
+                : 'No matching dish found.';
       });
     } catch (e) {
       setState(() {
@@ -162,8 +224,8 @@ class _ExpertsPageState extends State<ExpertsPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ==== IMAGE ANALYSIS ====
             const Text(
               '📷 Image Recognition Expert',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -189,22 +251,17 @@ class _ExpertsPageState extends State<ExpertsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             _isLoading
                 ? const CircularProgressIndicator()
                 : Text(
                   _result,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontSize: 16),
                 ),
-            const Divider(height: 40),
-
-            // ==== TEXT ANALYSIS ====
+            const Divider(height: 30),
             const Text(
-              '📝 Text Input Expert',
+              '📝 Text Description Expert',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -226,6 +283,48 @@ class _ExpertsPageState extends State<ExpertsPage> {
                 ? const CircularProgressIndicator()
                 : Text(
                   _textResult,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 16),
+                ),
+            const Divider(height: 30),
+            const Text(
+              '🥗 Ingredient Match Expert',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 10,
+              runSpacing: 5,
+              children:
+                  _availableIngredients.map((ingredient) {
+                    final isSelected = _selectedIngredients.contains(
+                      ingredient,
+                    );
+                    return FilterChip(
+                      label: Text(ingredient),
+                      selected: isSelected,
+                      onSelected: (selected) {
+                        setState(() {
+                          if (selected) {
+                            _selectedIngredients.add(ingredient);
+                          } else {
+                            _selectedIngredients.remove(ingredient);
+                          }
+                        });
+                      },
+                    );
+                  }).toList(),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: _analyzeIngredientSelection,
+              child: const Text('Analyze Ingredients'),
+            ),
+            const SizedBox(height: 10),
+            _isIngredientLoading
+                ? const CircularProgressIndicator()
+                : Text(
+                  _ingredientResult,
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 16),
                 ),

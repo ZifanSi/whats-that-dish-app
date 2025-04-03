@@ -1,0 +1,88 @@
+[
+  {
+    "ingredients": [
+      "tomato",
+      "mozzarella",
+      "basil"
+    ],
+    "name": "Margherita Pizza"
+  },
+  {
+    "ingredients": [
+      "lettuce",
+      "croutons",
+      "parmesan",
+      "caesar dressing"
+    ],
+    "name": "Caesar Salad"
+  },
+  {
+    "ingredients": [
+      "rice",
+      "seaweed",
+      "raw fish"
+    ],
+    "name": "Sushi"
+  },
+  {
+    "ingredients": [
+      "noodles",
+      "broth",
+      "pork",
+      "egg"
+    ],
+    "name": "Ramen"
+  },
+  {
+    "ingredients": [
+      "beef",
+      "tomato",
+      "spaghetti"
+    ],
+    "name": "Spaghetti Bolognese"
+  },
+  {
+    "ingredients": [
+      "chicken",
+      "cream",
+      "spices",
+      "tomato"
+    ],
+    "name": "Chicken Tikka Masala"
+  },
+  {
+    "ingredients": [
+      "bread",
+      "cheddar cheese",
+      "butter"
+    ],
+    "name": "Grilled Cheese Sandwich"
+  },
+  {
+    "ingredients": [
+      "flour",
+      "egg",
+      "milk",
+      "syrup"
+    ],
+    "name": "Pancakes"
+  },
+  {
+    "ingredients": [
+      "macaroni",
+      "cheddar cheese",
+      "milk"
+    ],
+    "name": "Mac and Cheese"
+  },
+  {
+    "ingredients": [
+      "beef",
+      "lettuce",
+      "bun",
+      "cheese",
+      "tomato"
+    ],
+    "name": "Hamburger"
+  }
+]

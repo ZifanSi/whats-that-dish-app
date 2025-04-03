@@ -27,4 +27,5 @@ flutter:
     - assets/data/recipes.json
     - .env
     - assets/data/t_dishes.json
+    - assets/data/t_ingredients.json
     
