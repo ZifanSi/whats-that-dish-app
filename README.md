@@ -6,31 +6,30 @@ This README outlines the **Minimum Viable Product (MVP)** features for the *What
 
 ## ✅ MVP Feature Set
 
-| Feature                 | Description                                                                 | Done |
-|-------------------------|-----------------------------------------------------------------------------|------|
-| **Dish Identification** | Identify a dish via image upload, text, or ingredient list                  | ❌   |
-| **Image Input**         | Upload a photo of food for recognition                                      | ❌   |
-| **Text Input**          | Type a short description of the dish                                        | ❌   |
-| **Ingredient Input**    | Provide ingredients to identify dish                                        | ❌   |
-| **Display Dish Info**   | Show dish name, image, origin, and description after identification         | ❌   |
-| **User Authentication** | Basic account creation, login, and logout                                   | ✅   |
-| **Recipe Viewing**      | Browse system-provided recipes with ingredients and steps                   | ❌   |
-| **Like a Dish**         | Tap to “like” a dish to help personalize future suggestions                 | ❌   |
-| **Dish Recommendations**| Recommend dishes based on likes and recent activity                         | ❌   |
-| **Navigation & UI**     | Home, Identify Dish, Recipes, and Recommendations screens                   | ❌   |
+| ID   | Feature                 | Description                                                                 | Done |
+|------|-------------------------|-----------------------------------------------------------------------------|------|
+| F01  | **Image Input**         | Upload a photo of food for recognition                                      | ✅   |
+| F02  | **Text Input**          | Type a short description of the dish                                        | ✅   |
+| F03  | **Ingredient Input**    | Provide ingredients to identify dish                                        | ✅   |
+| F04  | **Display Dish Info**   | Show dish name, image, origin, and description after identification         | ❌   |
+| F05  | **User Authentication** | Basic account creation, login, and logout                                   | ✅   |
+| F06  | **Recipe Viewing**      | Browse system-provided recipes with ingredients and steps                   | ❌   |
+| F07  | **Like a Dish**         | Tap to “like” a dish to help personalize future suggestions                 | ❌   |
+| F08  | **Dish Recommendations**| Recommend dishes based on likes and recent activity                         | ❌   |
+| F09  | **Navigation & UI**     | Home, Identify Dish, Recipes, and Recommendations screens                   | ❌   |
 
 ---
 
 ## 🕒 Planned Features (Post-MVP)
 
-| Feature                       | Description                                                                 | Done |
-|-------------------------------|-----------------------------------------------------------------------------|------|
-| **Custom Recipe Submission**  | Users can create and manage their own recipes                              | ❌   |
-| **Restaurant Recommendations**| Suggest places where dishes are served based on user location              | ❌   |
-| **Advanced Multi-Expert Logic**| Full expert module decision-making with conflict resolution (Blackboard)   | ❌   |
-| **Full History Tracking**     | Store and analyze user behavior for improved recommendations               | ❌   |
-| **Recipe Categorization**     | Automatically tag and validate recipes using filters                       | ❌   |
-| **Profile Management**        | User can update name, preferences, and profile picture                     | ❌   |
+| ID   | Feature                        | Description                                                                 | Done |
+|------|--------------------------------|-----------------------------------------------------------------------------|------|
+| F10  | **Custom Recipe Submission**   | Users can create and manage their own recipes                              | ❌   |
+| F11  | **Restaurant Recommendations** | Suggest places where dishes are served based on user location              | ❌   |
+| F12  | **Advanced Multi-Expert Logic**| Full expert module decision-making with conflict resolution (Blackboard)    | ✅   |
+| F13  | **Full History Tracking**      | Store and analyze user behavior for improved recommendations               | ❌   |
+| F14  | **Recipe Categorization**      | Automatically tag and validate recipes using filters                       | ❌   |
+| F15  | **Profile Management**         | User can update name, preferences, and profile picture                     | ❌   |
 
 ---
 
