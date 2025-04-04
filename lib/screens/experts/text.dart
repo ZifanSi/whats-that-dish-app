@@ -24,22 +24,34 @@ class _TextExpertPageState extends State<TextExpertPage> {
     });
 
     final jsonStr = await rootBundle.loadString('assets/data/t_dishes.json');
-    final dishes = jsonDecode(jsonStr);
+    final List<dynamic> dishes = jsonDecode(jsonStr);
+
+    final inputWords = input.split(RegExp(r'\s+'));
+    String? matchedDish;
+    double bestConfidence = 0.0;
 
     for (var dish in dishes) {
       final desc = (dish['description'] as String).toLowerCase();
-      if (desc.contains(input)) {
-        setState(() {
-          _isLoading = false;
-          _result = 'Dish: ${dish['name']}\nConfidence: 80%';
-        });
-        return;
+      final descWords = desc.split(RegExp(r'\s+'));
+
+      int matchCount =
+          inputWords.where((word) => descWords.contains(word)).length;
+      if (matchCount == 0) continue;
+
+      double confidence = matchCount / descWords.length;
+
+      if (confidence > bestConfidence) {
+        bestConfidence = confidence;
+        matchedDish = dish['name'];
       }
     }
 
     setState(() {
       _isLoading = false;
-      _result = 'No matching dish found.';
+      _result =
+          matchedDish != null
+              ? 'Dish: $matchedDish\nConfidence: ${(bestConfidence * 100).toStringAsFixed(2)}%'
+              : 'No matching dish found.';
     });
   }
 
@@ -65,7 +77,9 @@ class _TextExpertPageState extends State<TextExpertPage> {
               child: const Text("Analyze"),
             ),
             const SizedBox(height: 10),
-            _isLoading ? const CircularProgressIndicator() : Text(_result),
+            _isLoading
+                ? const CircularProgressIndicator()
+                : Text(_result, style: const TextStyle(fontSize: 16)),
           ],
         ),
       ),
