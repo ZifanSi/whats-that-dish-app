@@ -1,25 +1,60 @@
 import 'package:flutter/material.dart';
+import "image.dart";
+import 'dart:convert';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class BlackboardPage extends StatelessWidget {
-  final String imageResult;
-  final String textResult;
-  final String ingredientResult;
-
-  const BlackboardPage({
-    super.key,
-    required this.imageResult,
-    required this.textResult,
-    required this.ingredientResult,
-  });
+class BlackboardPage extends StatefulWidget {
+  const BlackboardPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Hardcoded confidence levels
-    const imageConfidence = 0.99;
-    const textConfidence = 0.80;
-    const ingredientConfidence = 0.50;
+  State<BlackboardPage> createState() => _BlackboardPageState();
+}
 
-    // Decision logic
+class _BlackboardPageState extends State<BlackboardPage> {
+  String imageResult = "";
+  String textResult = "";
+  String ingredientResult = "";
+
+  double imageConfidence = 0.0;
+  double textConfidence = 0.0;
+  double ingredientConfidence = 0.0;
+
+  ImagePicker _picker = ImagePicker();
+
+  // Experts.
+  ImageExpert imageExpert = ImageExpert();
+
+  // Input datatypes.
+  File? _image;
+
+  // Outputs.
+  String predictedDish = "";
+  double confidence = 0.0;
+
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+      
+    }
+  }
+
+  Future<void> controller() async{
+    // Controller logic.
+
+    // Call each expert.
+    var (imageResult, imageConfidence) = await imageExpert.analyzeImage(_image);
+
+    setState(() {
+        predictedDish = imageResult;
+      confidence = imageConfidence;
+    });
+    
+
     String bestResult;
     if (imageConfidence >= textConfidence &&
         imageConfidence >= ingredientConfidence) {
@@ -32,7 +67,10 @@ class BlackboardPage extends StatelessWidget {
       bestResult =
           '🥗 Best Expert: Ingredients\n$ingredientResult\nConfidence: 50%';
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('🧠 Blackboard')),
       body: Padding(
@@ -44,8 +82,46 @@ class BlackboardPage extends StatelessWidget {
               'Final Decision (Highest Confidence)',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
-            Text(bestResult, style: const TextStyle(fontSize: 16)),
+            // Image input.
+            _image == null
+                ? const Text('No image selected')
+                : Image.file(_image!, height: 200),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () => _pickImage(ImageSource.gallery),
+                    icon: const Icon(Icons.photo),
+                    label: const Text('Gallery'),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton.icon(
+                    onPressed: () => _pickImage(ImageSource.camera),
+                    icon: const Icon(Icons.camera_alt),
+                    label: const Text('Camera'),
+                  ),
+                ],
+              ),
+              // Run blackboard.
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: controller,
+                icon: const Icon(Icons.restaurant),
+                label: const Text('What\'s That Dish?'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 12.0,
+                  ),
+                ),
+              ),
+              Text(
+              'Predicted Dish: $predictedDish\nPrediction Confidence:$confidence',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
           ],
         ),
       ),
