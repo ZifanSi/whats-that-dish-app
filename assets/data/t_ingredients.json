@@ -1,96 +1,388 @@
 [
   {
+    "name": "Pepperoni Pizza",
     "ingredients": [
       "pepperoni",
       "tomato sauce",
       "pizza dough"
-    ],
-    "name": "Pepperoni Pizza"
+    ]
   },
   {
+    "name": "Margherita Pizza",
     "ingredients": [
       "tomato",
       "mozzarella",
       "basil"
-    ],
-    "name": "Margherita Pizza"
+    ]
   },
   {
+    "name": "Caesar Salad",
     "ingredients": [
       "lettuce",
       "croutons",
       "parmesan",
       "caesar dressing"
-    ],
-    "name": "Caesar Salad"
+    ]
   },
   {
+    "name": "Sushi",
     "ingredients": [
       "rice",
       "seaweed",
       "raw fish"
-    ],
-    "name": "Sushi"
+    ]
   },
   {
+    "name": "Ramen",
     "ingredients": [
       "noodles",
       "broth",
       "pork",
       "egg"
-    ],
-    "name": "Ramen"
+    ]
   },
   {
+    "name": "Spaghetti Bolognese",
     "ingredients": [
       "beef",
       "tomato",
       "spaghetti"
-    ],
-    "name": "Spaghetti Bolognese"
+    ]
   },
   {
+    "name": "Chicken Tikka Masala",
     "ingredients": [
       "chicken",
       "cream",
       "spices",
       "tomato"
-    ],
-    "name": "Chicken Tikka Masala"
+    ]
   },
   {
+    "name": "Grilled Cheese Sandwich",
     "ingredients": [
       "bread",
       "cheddar cheese",
       "butter"
-    ],
-    "name": "Grilled Cheese Sandwich"
+    ]
   },
   {
+    "name": "Pancakes",
     "ingredients": [
       "flour",
       "egg",
       "milk",
       "syrup"
-    ],
-    "name": "Pancakes"
+    ]
   },
   {
+    "name": "Mac and Cheese",
     "ingredients": [
       "macaroni",
       "cheddar cheese",
       "milk"
-    ],
-    "name": "Mac and Cheese"
+    ]
   },
   {
+    "name": "Hamburger",
     "ingredients": [
       "beef",
       "lettuce",
       "bun",
       "cheese",
       "tomato"
-    ],
-    "name": "Hamburger"
+    ]
+  },
+  {
+    "name": "Tacos",
+    "ingredients": [
+      "tortilla",
+      "beef",
+      "lettuce",
+      "cheddar",
+      "salsa"
+    ]
+  },
+  {
+    "name": "Fried Rice",
+    "ingredients": [
+      "rice",
+      "egg",
+      "carrot",
+      "peas",
+      "soy sauce"
+    ]
+  },
+  {
+    "name": "Pad Thai",
+    "ingredients": [
+      "rice noodles",
+      "shrimp",
+      "peanuts",
+      "egg",
+      "lime"
+    ]
+  },
+  {
+    "name": "French Toast",
+    "ingredients": [
+      "bread",
+      "egg",
+      "milk",
+      "cinnamon"
+    ]
+  },
+  {
+    "name": "Lasagna",
+    "ingredients": [
+      "lasagna noodles",
+      "beef",
+      "ricotta",
+      "tomato sauce"
+    ]
+  },
+  {
+    "name": "Falafel Wrap",
+    "ingredients": [
+      "falafel",
+      "pita bread",
+      "lettuce",
+      "tahini"
+    ]
+  },
+  {
+    "name": "Shakshuka",
+    "ingredients": [
+      "tomato",
+      "egg",
+      "onion",
+      "bell pepper",
+      "spices"
+    ]
+  },
+  {
+    "name": "Pho",
+    "ingredients": [
+      "rice noodles",
+      "beef",
+      "broth",
+      "basil",
+      "bean sprouts"
+    ]
+  },
+  {
+    "name": "Chili",
+    "ingredients": [
+      "ground beef",
+      "beans",
+      "tomato",
+      "onion",
+      "chili powder"
+    ]
+  },
+  {
+    "name": "Burrito",
+    "ingredients": [
+      "tortilla",
+      "rice",
+      "beans",
+      "chicken",
+      "sour cream"
+    ]
+  },
+  {
+    "name": "Omelette",
+    "ingredients": [
+      "egg",
+      "cheddar",
+      "mushroom",
+      "onion",
+      "pepper"
+    ]
+  },
+  {
+    "name": "Quiche",
+    "ingredients": [
+      "egg",
+      "spinach",
+      "cheese",
+      "pastry crust"
+    ]
+  },
+  {
+    "name": "Gnocchi",
+    "ingredients": [
+      "potato",
+      "flour",
+      "parmesan",
+      "butter"
+    ]
+  },
+  {
+    "name": "Miso Soup",
+    "ingredients": [
+      "miso paste",
+      "tofu",
+      "seaweed",
+      "green onion"
+    ]
+  },
+  {
+    "name": "Clam Chowder",
+    "ingredients": [
+      "clams",
+      "potato",
+      "cream",
+      "onion",
+      "celery"
+    ]
+  },
+  {
+    "name": "Beef Stroganoff",
+    "ingredients": [
+      "beef",
+      "mushroom",
+      "sour cream",
+      "onion",
+      "egg noodles"
+    ]
+  },
+  {
+    "name": "Chicken Alfredo",
+    "ingredients": [
+      "chicken",
+      "fettuccine",
+      "cream",
+      "parmesan",
+      "butter"
+    ]
+  },
+  {
+    "name": "Vegetable Stir Fry",
+    "ingredients": [
+      "broccoli",
+      "carrot",
+      "bell pepper",
+      "soy sauce",
+      "garlic"
+    ]
+  },
+  {
+    "name": "Beef Tacos",
+    "ingredients": [
+      "tortilla",
+      "beef",
+      "lettuce",
+      "salsa",
+      "cheddar"
+    ]
+  },
+  {
+    "name": "Eggplant Parmesan",
+    "ingredients": [
+      "eggplant",
+      "tomato sauce",
+      "mozzarella",
+      "breadcrumbs"
+    ]
+  },
+  {
+    "name": "Shrimp Scampi",
+    "ingredients": [
+      "shrimp",
+      "garlic",
+      "butter",
+      "lemon",
+      "pasta"
+    ]
+  },
+  {
+    "name": "BBQ Ribs",
+    "ingredients": [
+      "pork ribs",
+      "bbq sauce",
+      "garlic",
+      "brown sugar"
+    ]
+  },
+  {
+    "name": "Lamb Curry",
+    "ingredients": [
+      "lamb",
+      "curry powder",
+      "tomato",
+      "onion",
+      "yogurt"
+    ]
+  },
+  {
+    "name": "Stuffed Peppers",
+    "ingredients": [
+      "bell pepper",
+      "rice",
+      "beef",
+      "cheese",
+      "tomato sauce"
+    ]
+  },
+  {
+    "name": "Beef Wellington",
+    "ingredients": [
+      "beef tenderloin",
+      "puff pastry",
+      "mushroom",
+      "egg",
+      "mustard"
+    ]
+  },
+  {
+    "name": "Shepherd\u2019s Pie",
+    "ingredients": [
+      "ground lamb",
+      "potato",
+      "peas",
+      "carrot",
+      "onion"
+    ]
+  },
+  {
+    "name": "Chicken Parmesan",
+    "ingredients": [
+      "chicken",
+      "mozzarella",
+      "parmesan",
+      "tomato sauce",
+      "breadcrumbs"
+    ]
+  },
+  {
+    "name": "Tuna Salad",
+    "ingredients": [
+      "tuna",
+      "mayonnaise",
+      "celery",
+      "onion",
+      "lettuce"
+    ]
+  },
+  {
+    "name": "Greek Salad",
+    "ingredients": [
+      "tomato",
+      "cucumber",
+      "feta",
+      "olive",
+      "onion"
+    ]
+  },
+  {
+    "name": "BLT Sandwich",
+    "ingredients": [
+      "bacon",
+      "lettuce",
+      "tomato",
+      "bread",
+      "mayonnaise"
+    ]
   }
 ]

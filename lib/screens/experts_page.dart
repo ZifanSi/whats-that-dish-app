@@ -6,8 +6,12 @@ import 'package:dish_app/screens/experts/text.dart';
 import 'package:dish_app/screens/experts/ingredient.dart';
 import 'package:dish_app/screens/experts/blackboard.dart';
 
+import 'package:dish_app/screens/recommendations_page.dart';
+
+
 class ExpertsPage extends StatelessWidget {
   const ExpertsPage({super.key});
+
 
   final String imageResult = 'Dish: Pepperoni Pizza';
   final String textResult = 'Dish: Cheese Pizza';
@@ -72,6 +76,18 @@ class ExpertsPage extends StatelessWidget {
                 ),
               ),
               useScripterFont: true,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const RecommendationsPage(),
+                  ),
+                );
+              },
+              child: const Text('🌟 Dish Recommendations'),
             ),
           ],
         ),

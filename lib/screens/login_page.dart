@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 10),
                         UnderPart(
                           title: "Don't have an account?",
-                          navigatorText: "Register here",
+                          navigatorText: " Create One",
                           onTap: () {
                             Navigator.pushNamed(context, '/create_account');
                           },
