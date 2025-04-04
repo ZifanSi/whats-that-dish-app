@@ -11,12 +11,12 @@ This README outlines the **Minimum Viable Product (MVP)** features for the *What
 | F01  | **Image Input**         | Upload a photo of food for recognition                                      | ✅   |
 | F02  | **Text Input**          | Type a short description of the dish                                        | ✅   |
 | F03  | **Ingredient Input**    | Provide ingredients to identify dish                                        | ✅   |
-| F04  | **Display Dish Info**   | Show dish name, image, origin, and description after identification         | ❌   |
+| F04  | **Display Dish Info**   | Show dish origin, and culture description after identification              | ❌   |
 | F05  | **User Authentication** | Basic account creation, login, and logout                                   | ✅   |
 | F06  | **Recipe Viewing**      | Browse system-provided recipes with ingredients and steps                   | ❌   |
 | F07  | **Like a Dish**         | Tap to “like” a dish to help personalize future suggestions                 | ❌   |
 | F08  | **Dish Recommendations**| Recommend dishes based on likes and recent activity                         | ❌   |
-| F09  | **Navigation & UI**     | Home, Identify Dish, Recipes, and Recommendations screens                   | ❌   |
+| F09  | **Navigation & UI**     | Good UI                                                                     | ❌   |
 
 ---
 
