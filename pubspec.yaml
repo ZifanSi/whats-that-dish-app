@@ -14,6 +14,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   file_picker: ^6.1.1
   image_picker: ^1.0.7
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -23,9 +24,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/images/login.png
     - assets/data/t_users.json
     - assets/data/recipes.json
     - .env
     - assets/data/t_dishes.json
     - assets/data/t_ingredients.json
+  fonts:
+  - family: Scripter
+    fonts:
+      - asset: assets/fonts/Scripter.ttf
+
     
