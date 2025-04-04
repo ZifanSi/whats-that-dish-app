@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/login_page.dart';
-import 'screens/experts_page.dart';
-import 'screens/ingredients_analysis.dart';
-import 'screens/recipe_manager.dart';
-import 'screens/image_recognition.dart';
+import 'screens/home_page.dart';
 import 'screens/create_account_page.dart';
+import 'screens/experts/blackboard.dart';
+import 'screens/recommendations_page.dart';
+import 'screens/recipe_manager.dart';
 
 Future<void> main() async {
   // Loading the .env file
@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginPage(),
-        '/experts': (context) => ExpertsPage(),
-        '/ingredients': (context) => IngredientsAnalysisPage(),
-        '/recipe_manager': (context) => AddRecipePage(),
-        '/image_recognition': (context) => ImageRecognitionPage(),
+        '/homePage': (context) => HomePage(),
         '/create_account': (context) => const CreateAccountPage(),
+        '/blackboard': (context) => BlackboardPage(),
+        '/recommendation': (context) => RecommendationsPage(),
+        '/AddRecipePage': (context) => AddRecipePage(),
       },
     );
   }

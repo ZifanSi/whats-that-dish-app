@@ -22,10 +22,32 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   String _message = '';
 
+  Future<List<Map<String, dynamic>>> _loadUsers() async {
+    final jsonString = await rootBundle.loadString('assets/data/t_users.json');
+    final List<dynamic> jsonList = json.decode(jsonString);
+    return jsonList.cast<Map<String, dynamic>>();
+  }
+
   Future<void> _login() async {
-    // TEMP: always allow login
-    if (context.mounted) {
-      Navigator.pushNamed(context, '/experts');
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    final users = await _loadUsers();
+
+    final user = users.firstWhere(
+      (u) => u['email'] == email && u['password'] == password,
+      orElse: () => {},
+    );
+
+    if (user.isNotEmpty) {
+      // Navigate to the Experts page
+      if (context.mounted) {
+        Navigator.pushNamed(context, '/homePage');
+      }
+    } else {
+      setState(() {
+        _message = 'Invalid email or password.';
+      });
     }
   }
 
