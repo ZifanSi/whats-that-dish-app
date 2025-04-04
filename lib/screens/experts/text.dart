@@ -2,36 +2,30 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-class TextExpertPage extends StatefulWidget {
-  const TextExpertPage({super.key});
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
-  @override
-  State<TextExpertPage> createState() => _TextExpertPageState();
-}
+class TextExpert {
+  // Constructor.
+  TextExpert();
 
-class _TextExpertPageState extends State<TextExpertPage> {
-  final TextEditingController _controller = TextEditingController();
-  String _result = '';
-  bool _isLoading = false;
+  Future<List<dynamic>> _loadDishes() async {
+    String jsonString = await rootBundle.loadString('assets/data/t_dishes.json');
+    return List<dynamic>.from(json.decode(jsonString));
+  }
 
-  Future<void> _analyzeText() async {
-    final input = _controller.text.trim().toLowerCase();
-    if (input.isEmpty) return;
-
-    setState(() {
-      _isLoading = true;
-      _result = '';
-    });
-
-    final jsonStr = await rootBundle.loadString('assets/data/t_dishes.json');
-    final List<dynamic> dishes = jsonDecode(jsonStr);
-
-    final inputWords = input.split(RegExp(r'\s+'));
-    String? matchedDish;
+  // Predict based on list of Ingredients.
+  Future<(String, double)> predictDish(String textInput) async {
+    final inputWords = textInput.split(RegExp(r'\s+'));
+    
+    List<dynamic> dishesInfo = await _loadDishes();
+    String dish = "";
     double bestConfidence = 0.0;
 
-    for (var dish in dishes) {
-      final desc = (dish['description'] as String).toLowerCase();
+
+    for (var dishInfo in dishesInfo) {
+      final desc = (dishInfo['description'] as String).toLowerCase();
       final descWords = desc.split(RegExp(r'\s+'));
 
       int matchCount =
@@ -42,47 +36,10 @@ class _TextExpertPageState extends State<TextExpertPage> {
 
       if (confidence > bestConfidence) {
         bestConfidence = confidence;
-        matchedDish = dish['name'];
+        dish = dishInfo['name'];
       }
     }
 
-    setState(() {
-      _isLoading = false;
-      _result =
-          matchedDish != null
-              ? 'Dish: $matchedDish\nConfidence: ${(bestConfidence * 100).toStringAsFixed(2)}%'
-              : 'No matching dish found.';
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Text Expert")),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextField(
-              controller: _controller,
-              maxLines: 3,
-              decoration: const InputDecoration(
-                hintText: "Describe the dish...",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _analyzeText,
-              child: const Text("Analyze"),
-            ),
-            const SizedBox(height: 10),
-            _isLoading
-                ? const CircularProgressIndicator()
-                : Text(_result, style: const TextStyle(fontSize: 16)),
-          ],
-        ),
-      ),
-    );
+    return (dish, bestConfidence);
   }
 }

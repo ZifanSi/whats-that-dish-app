@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "image.dart";
 import "ingredient.dart";
+import "text.dart";
 import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -26,12 +27,14 @@ class _BlackboardPageState extends State<BlackboardPage> {
 
   // Input Controllers.
   TextEditingController ingredientsController = TextEditingController();
+  TextEditingController textController = TextEditingController();
 
   ImagePicker _picker = ImagePicker();
 
   // Experts.
   ImageExpert imageExpert = ImageExpert();
   IngredientsExpert ingredientsExpert = IngredientsExpert();
+  TextExpert textExpert = TextExpert();
 
   // Input datatypes.
   File? _image;
@@ -56,11 +59,14 @@ class _BlackboardPageState extends State<BlackboardPage> {
     // Call each expert.
     var (imageResult, imageConfidence) = await imageExpert.predictDish(_image);
     var (ingredientResult, ingredientConfidence) = await ingredientsExpert.predictDish(ingredientsController.text);
-    
+    var (textResult, textConfidence) = await textExpert.predictDish(textController.text);
 
+    // Conflict resolution.
+
+    // Update the screen output of the predicted Dish.
     setState(() {
-        predictedDish = ingredientResult;
-        confidence = ingredientConfidence;
+        predictedDish = textResult;
+        confidence = textConfidence;
     });
     
 
@@ -87,10 +93,6 @@ class _BlackboardPageState extends State<BlackboardPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Final Decision (Highest Confidence)',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
             // Image input.
             _image == null
                 ? const Text('No image selected')
@@ -112,16 +114,27 @@ class _BlackboardPageState extends State<BlackboardPage> {
                   ),
                 ],
               ),
-              // Ingredients input field.
-              TextField(
+            const SizedBox(height: 10),
+            // Ingredients input field.
+            TextField(
                   controller: ingredientsController,
                   decoration: const InputDecoration(
                     labelText: "Enter Ingredients (comma-separated)",
                     border: OutlineInputBorder(),
                   ),
-                  maxLines: 2,
                 ),
-              // Run blackboard.
+            const SizedBox(height: 10),
+            // Text Analysis input field.
+            TextField(
+              controller: textController,
+              maxLines: 3,
+              decoration: const InputDecoration(
+                hintText: "Describe the Dish",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            // Run blackboard.
               const SizedBox(height: 20),
               ElevatedButton.icon(
                 onPressed: controller,
@@ -135,8 +148,10 @@ class _BlackboardPageState extends State<BlackboardPage> {
                   ),
                 ),
               ),
-              Text(
-              'Predicted Dish: $predictedDish\nPrediction Confidence:$confidence',
+            const SizedBox(height: 10),
+            // Final Output.
+            Text(
+              'Predicted Dish: $predictedDish\nPrediction Confidence: $confidence',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
             ),
