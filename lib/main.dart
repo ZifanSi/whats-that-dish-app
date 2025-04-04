@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/login_page.dart';
+import 'screens/home_page.dart';
 import 'screens/create_account_page.dart';
 import 'screens/experts/blackboard.dart';
+import 'screens/recommendations_page.dart';
 
 Future<void> main() async {
   // Loading the .env file
@@ -19,11 +21,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Dish Identification App',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/blackboard',
+      initialRoute: '/',
       routes: {
         '/': (context) => const LoginPage(),
-        '/blackboard': (context) => BlackboardPage(),
+        '/homePage': (context) => HomePage(),
         '/create_account': (context) => const CreateAccountPage(),
+        '/blackboard': (context) => BlackboardPage(),
+        '/recommendation': (context) => RecommendationsPage(),
       },
     );
   }
