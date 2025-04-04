@@ -1,5 +1,9 @@
 // lib/screens/create_account_page.dart
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:io';
+
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
@@ -14,7 +18,33 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   String _message = '';
 
-  void _mockCreateAccount() {
+  // Load the existing users data from the asset
+  Future<List<Map<String, dynamic>>> _loadUsers() async {
+    String jsonString = await rootBundle.loadString('assets/data/t_users.json');
+    return List<Map<String, dynamic>>.from(json.decode(jsonString));
+  }
+
+  // Save the updated user data to the JSON file
+  Future<void> _saveUsers(List<Map<String, dynamic>> userData) async {
+    final file = File('assets/data/t_users.json');
+    String updatedJson = JsonEncoder.withIndent('  ').convert(userData);
+    await file.writeAsString(updatedJson);
+  }
+
+  void _mockCreateAccount() async{
+    // Load the current user database.
+    List<Map<String, dynamic>> users = await _loadUsers();
+
+    // Create a new user and add to the user database.
+    Map<String, dynamic> newUser = {
+      "id": _emailController.text,
+      "password": _passwordController.text,
+    };
+    users.add(newUser);
+
+    // Write the user date back to the json file.
+    _saveUsers(users);
+
     setState(() {
       _message = 'Account created successfully!';
     });

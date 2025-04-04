@@ -66,14 +66,14 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             Text(_message, style: const TextStyle(fontSize: 16)),
 
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/image_recognition');
-              },
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-              child: const Text('Go to Image Recognition (Debug)'),
-            ),
+            // const SizedBox(height: 20),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.pushNamed(context, '/image_recognition');
+            //   },
+            //   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+            //   child: const Text('Go to Image Recognition (Debug)'),
+            // ),
 
             const SizedBox(height: 20),
 
