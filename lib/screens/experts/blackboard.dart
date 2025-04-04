@@ -58,29 +58,26 @@ class _BlackboardPageState extends State<BlackboardPage> {
 
     // Call each expert.
     var (imageResult, imageConfidence) = await imageExpert.predictDish(_image);
-    var (ingredientResult, ingredientConfidence) = await ingredientsExpert.predictDish(ingredientsController.text);
     var (textResult, textConfidence) = await textExpert.predictDish(textController.text);
+    var (ingredientResult, ingredientConfidence) = await ingredientsExpert.predictDish(ingredientsController.text);
 
-    // Conflict resolution.
-
-    // Update the screen output of the predicted Dish.
-    setState(() {
-        predictedDish = textResult;
-        confidence = textConfidence;
-    });
-    
-
-    String bestResult;
+    // Conflict resolution.    
     if (imageConfidence >= textConfidence &&
         imageConfidence >= ingredientConfidence) {
-      bestResult =
-          '📷 Best Expert: Image Recognition\n$imageResult\nConfidence: 99%';
-    } else if (textConfidence >= ingredientConfidence) {
-      bestResult =
-          '📝 Best Expert: Text Description\n$textResult\nConfidence: 80%';
+        setState(() {
+          predictedDish = imageResult;
+          confidence = imageConfidence;
+        });
+    } else if (ingredientConfidence >= textConfidence) {
+        setState(() {
+          predictedDish = ingredientResult;
+          confidence = ingredientConfidence;
+        });
     } else {
-      bestResult =
-          '🥗 Best Expert: Ingredients\n$ingredientResult\nConfidence: 50%';
+        setState(() {
+          predictedDish = textResult;
+          confidence = textConfidence;
+        });
     }
   }
 
