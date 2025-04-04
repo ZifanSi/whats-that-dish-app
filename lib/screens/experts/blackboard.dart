@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "image.dart";
+import "ingredient.dart";
 import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -13,18 +14,24 @@ class BlackboardPage extends StatefulWidget {
 }
 
 class _BlackboardPageState extends State<BlackboardPage> {
+  // Predicted results.
   String imageResult = "";
   String textResult = "";
   String ingredientResult = "";
 
+  // Confidence level.
   double imageConfidence = 0.0;
   double textConfidence = 0.0;
   double ingredientConfidence = 0.0;
+
+  // Input Controllers.
+  TextEditingController ingredientsController = TextEditingController();
 
   ImagePicker _picker = ImagePicker();
 
   // Experts.
   ImageExpert imageExpert = ImageExpert();
+  IngredientsExpert ingredientsExpert = IngredientsExpert();
 
   // Input datatypes.
   File? _image;
@@ -47,11 +54,13 @@ class _BlackboardPageState extends State<BlackboardPage> {
     // Controller logic.
 
     // Call each expert.
-    var (imageResult, imageConfidence) = await imageExpert.analyzeImage(_image);
+    var (imageResult, imageConfidence) = await imageExpert.predictDish(_image);
+    var (ingredientResult, ingredientConfidence) = await ingredientsExpert.predictDish(ingredientsController.text);
+    
 
     setState(() {
-        predictedDish = imageResult;
-      confidence = imageConfidence;
+        predictedDish = ingredientResult;
+        confidence = ingredientConfidence;
     });
     
 
@@ -103,6 +112,15 @@ class _BlackboardPageState extends State<BlackboardPage> {
                   ),
                 ],
               ),
+              // Ingredients input field.
+              TextField(
+                  controller: ingredientsController,
+                  decoration: const InputDecoration(
+                    labelText: "Enter Ingredients (comma-separated)",
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 2,
+                ),
               // Run blackboard.
               const SizedBox(height: 20),
               ElevatedButton.icon(

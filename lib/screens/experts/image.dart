@@ -8,12 +8,8 @@ class ImageExpert {
   // Constructor.
   ImageExpert();
 
-  // Predict based on picture.
-  String getString() {
-    return "Hello from SampleClass";
-  }
-
-  Future<(String, double)> analyzeImage(File? image) async {
+  // Predict dish based on image file.
+  Future<(String, double)> predictDish(File? image) async {
     if (image == null) return ("", 0.0);
 
     final apiKey = dotenv.env['IMAGE_RECOGNITION_API'];
