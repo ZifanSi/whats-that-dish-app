@@ -15,7 +15,7 @@ This README outlines the **Minimum Viable Product (MVP)** features for the *What
 | F05  | **User Authentication** | Basic account creation, login, and logout                                   | ✅   |
 | F06  | **Recipe Viewing**      | Browse system-provided recipes with ingredients and steps                   | ❌   |
 | F07  | **Like a Dish**         | Tap to “like” a dish to help personalize future suggestions                 | ❌   |
-| F08  | **Dish Recommendations**| Recommend dishes based on likes and recent activity                         | ❌   |
+| F08  | **Dish Recommendations**| Recommend dishes based on likes and recent activity                         | ✅   |
 | F09  | **Navigation & UI**     | Good UI                                                                     | ❌   |
 
 ---
