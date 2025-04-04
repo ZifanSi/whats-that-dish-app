@@ -22,6 +22,13 @@ class HomePage extends StatelessWidget {
               },
               child: Text('Recommendation Page'),
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/AddRecipePage');
+              },
+              child: Text('Add Recipes'),
+            ),
           ],
         ),
       ),
