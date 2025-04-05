@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:io';
+import 'package:google_fonts/google_fonts.dart';
 
 class AddRecipePage extends StatefulWidget {
   const AddRecipePage({super.key});
@@ -19,37 +20,29 @@ class _AddRecipePageState extends State<AddRecipePage> {
   final TextEditingController sourceController = TextEditingController();
   final TextEditingController ingredientsController = TextEditingController();
 
-  // Load the existing recipe data from the asset
   Future<List<Map<String, dynamic>>> _loadRecipes() async {
     String jsonString = await rootBundle.loadString('assets/data/recipes.json');
     return List<Map<String, dynamic>>.from(json.decode(jsonString));
   }
 
-  // Save the updated recipe data to the JSON file
   Future<void> _saveRecipes(List<Map<String, dynamic>> recipes) async {
     final file = File('assets/data/recipes.json');
     String updatedJson = JsonEncoder.withIndent('  ').convert(recipes);
     await file.writeAsString(updatedJson);
   }
 
-  // Add the recipe to the list and save it
   void _addRecipe(List<Map<String, dynamic>> recipes) {
     if (nameController.text.isEmpty || ingredientsController.text.isEmpty) {
-      // Show an error message if required fields are missing
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please fill in the required fields: Meal Name, Ingredients")),
       );
       return;
     }
 
-    // Parse the ingredients list from the user input
     List<String> ingredientsList = ingredientsController.text.split(',').map((e) => e.trim()).toList();
-    // Parse the directions from the user input (assuming each direction is a new line)
     List<String> directionsList = directionsController.text.split('\n').map((e) => e.trim()).toList();
-    // Parse the proportion field (assuming user enters comma-separated proportions)
     List<String> proportionList = proportionController.text.split(',').map((e) => e.trim()).toList();
 
-    // Create a new recipe
     Map<String, dynamic> newRecipe = {
       "id": idController.text.isEmpty ? "Default" : idController.text,
       "name": nameController.text,
@@ -60,13 +53,9 @@ class _AddRecipePageState extends State<AddRecipePage> {
       "ingredients": ingredientsList,
     };
 
-    // Add the new recipe to the list of existing recipes
     recipes.add(newRecipe);
-
-    // Save the updated list to the JSON file
     _saveRecipes(recipes);
 
-    // Clear the input fields
     idController.clear();
     nameController.clear();
     proportionController.clear();
@@ -75,16 +64,51 @@ class _AddRecipePageState extends State<AddRecipePage> {
     sourceController.clear();
     ingredientsController.clear();
 
-    // Show a success message
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Recipe added successfully!")),
+    );
+  }
+
+  Widget _styledInput({required String label, required TextEditingController controller, int maxLines = 1}) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0xFF955306),
+            offset: Offset(4, 4),
+            blurRadius: 6,
+          ),
+        ],
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.black, width: 1.5),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: TextField(
+          controller: controller,
+          maxLines: maxLines,
+          style: const TextStyle(fontFamily: 'Inter'),
+          decoration: InputDecoration(
+            labelText: label,
+            border: InputBorder.none,
+            labelStyle: const TextStyle(fontFamily: 'Inter'),
+          ),
+        ),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add New Recipe")),
+      backgroundColor: const Color(0xFFFFF8ED),
+      appBar: AppBar(
+        title: Text("Add New Recipe", style: GoogleFonts.lobster(fontSize: 24)),
+        backgroundColor: const Color(0xFF955306),
+        foregroundColor: Colors.white,
+      ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _loadRecipes(),
         builder: (context, snapshot) {
@@ -96,58 +120,48 @@ class _AddRecipePageState extends State<AddRecipePage> {
 
           List<Map<String, dynamic>> recipes = snapshot.data ?? [];
 
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextField(
-                    controller: idController,
-                    decoration: const InputDecoration(labelText: "ID (optional)"),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(labelText: "Meal Name *"),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: proportionController,
-                    decoration: const InputDecoration(labelText: "Proportion (optional)"),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: directionsController,
-                    decoration: const InputDecoration(labelText: "Directions (separate by new lines)"),
-                    maxLines: 5,
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: linkController,
-                    decoration: const InputDecoration(labelText: "Link (optional)"),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: sourceController,
-                    decoration: const InputDecoration(labelText: "Source (optional)"),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: ingredientsController,
-                    decoration: const InputDecoration(
-                      labelText: "Ingredients * (comma-separated)",
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                _styledInput(label: "ID (Optional)", controller: idController),
+                _styledInput(label: "Name of the Dish *", controller: nameController),
+                _styledInput(label: "Number of Servings (Optional)", controller: proportionController),
+                _styledInput(
+                  label: "Recipe Directions  (separate by new lines)",
+                  controller: directionsController,
+                  maxLines: 5,
+                ),
+                _styledInput(label: "Link (Optional)", controller: linkController),
+                _styledInput(label: "Source (Optional)", controller: sourceController),
+                _styledInput(label: "Ingredients * (comma-separated)", controller: ingredientsController),
+                const SizedBox(height: 20),
+                Center(
+                  child: ElevatedButton.icon(
+                    onPressed: () => _addRecipe(recipes),
+                    icon: const Icon(Icons.menu_book, color: Colors.white),
+                    label: const Text(
+                      "Add Recipe",
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF955306),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: const BorderSide(color: Colors.black, width: 2),
+                      ),
+                      shadowColor: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      _addRecipe(recipes);
-                    },
-                    child: const Text("Add Recipe"),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

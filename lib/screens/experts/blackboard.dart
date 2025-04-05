@@ -165,7 +165,7 @@ class _BlackboardPageState extends State<BlackboardPage> {
                 style: const TextStyle(fontFamily: "Inter", fontSize: 16),
               ),
             ),
-            const SizedBox(height: 35), // Increased spacing
+            const SizedBox(height: 30), // Increased spacing
             Center(
               child: ElevatedButton.icon(
               onPressed: controller,
