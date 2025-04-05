@@ -55798,5 +55798,25 @@
       "raisins",
       "water"
     ]
+  },
+  {
+    "id": "Default",
+    "name": "biryani",
+    "proportion": [
+      ""
+    ],
+    "directions": [
+      "stire meat, spices, rice",
+      "cook"
+    ],
+    "link": "N/A",
+    "source": "N/A",
+    "ingredients": [
+      "meat",
+      "salt",
+      "pepper",
+      "biriyani mix spice",
+      "rice"
+    ]
   }
 ]

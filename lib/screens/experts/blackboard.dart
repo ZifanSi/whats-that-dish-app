@@ -5,7 +5,7 @@ import "text.dart";
 import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BlackboardPage extends StatefulWidget {
   const BlackboardPage({super.key});
@@ -15,31 +15,24 @@ class BlackboardPage extends StatefulWidget {
 }
 
 class _BlackboardPageState extends State<BlackboardPage> {
-  // Predicted results.
   String imageResult = "";
   String textResult = "";
   String ingredientResult = "";
 
-  // Confidence level.
   double imageConfidence = 0.0;
   double textConfidence = 0.0;
   double ingredientConfidence = 0.0;
 
-  // Input Controllers.
   TextEditingController ingredientsController = TextEditingController();
   TextEditingController textController = TextEditingController();
-
   ImagePicker _picker = ImagePicker();
 
-  // Experts.
   ImageExpert imageExpert = ImageExpert();
   IngredientsExpert ingredientsExpert = IngredientsExpert();
   TextExpert textExpert = TextExpert();
 
-  // Input datatypes.
   File? _image;
 
-  // Outputs.
   String predictedDish = "";
   double confidence = 0.0;
 
@@ -49,109 +42,158 @@ class _BlackboardPageState extends State<BlackboardPage> {
       setState(() {
         _image = File(pickedFile.path);
       });
-      
     }
   }
 
-  Future<void> controller() async{
-    // Controller logic.
-
-    // Call each expert.
+  Future<void> controller() async {
     var (imageResult, imageConfidence) = await imageExpert.predictDish(_image);
     var (textResult, textConfidence) = await textExpert.predictDish(textController.text);
     var (ingredientResult, ingredientConfidence) = await ingredientsExpert.predictDish(ingredientsController.text);
 
-    // Conflict resolution.    
     if (imageConfidence >= textConfidence &&
         imageConfidence >= ingredientConfidence) {
-        setState(() {
-          predictedDish = imageResult;
-          confidence = imageConfidence;
-        });
+      setState(() {
+        predictedDish = imageResult;
+        confidence = imageConfidence;
+      });
     } else if (ingredientConfidence >= textConfidence) {
-        setState(() {
-          predictedDish = ingredientResult;
-          confidence = ingredientConfidence;
-        });
+      setState(() {
+        predictedDish = ingredientResult;
+        confidence = ingredientConfidence;
+      });
     } else {
-        setState(() {
-          predictedDish = textResult;
-          confidence = textConfidence;
-        });
+      setState(() {
+        predictedDish = textResult;
+        confidence = textConfidence;
+      });
     }
   }
+
+  BoxDecoration _customBoxDecoration() => BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0xFF955306),
+            offset: Offset(6, 6),
+          )
+        ],
+      );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('🧠 Blackboard')),
+      backgroundColor: const Color(0xFFFFF8ED),
+      appBar: AppBar(
+        title: Text(
+          "What’s that Dish?",
+          style: GoogleFonts.lobster(
+            fontSize: 26,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: const Color(0xFF955306),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image input.
-            _image == null
-                ? const Text('No image selected')
-                : Image.file(_image!, height: 200),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () => _pickImage(ImageSource.gallery),
-                    icon: const Icon(Icons.photo),
-                    label: const Text('Gallery'),
-                  ),
-                  const SizedBox(width: 10),
-                  ElevatedButton.icon(
-                    onPressed: () => _pickImage(ImageSource.camera),
-                    icon: const Icon(Icons.camera_alt),
-                    label: const Text('Camera'),
-                  ),
-                ],
-              ),
-            const SizedBox(height: 10),
-            // Ingredients input field.
-            TextField(
-                  controller: ingredientsController,
-                  decoration: const InputDecoration(
-                    labelText: "Enter Ingredients (comma-separated)",
-                    border: OutlineInputBorder(),
+            Text("Upload Dish Image:", style: GoogleFonts.lobster(fontSize: 20)),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _pickImage(ImageSource.gallery),
+                  child: Text("Gallery", style: TextStyle(fontFamily: "Inter", fontSize: 16)),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 6,
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: const BorderSide(color: Colors.black, width: 2),
+                    ),
+                    shadowColor: const Color(0xFF955306),
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   ),
                 ),
-            const SizedBox(height: 10),
-            // Text Analysis input field.
-            TextField(
-              controller: textController,
-              maxLines: 3,
-              decoration: const InputDecoration(
-                hintText: "Describe the Dish",
-                border: OutlineInputBorder(),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () => _pickImage(ImageSource.camera),
+                  child: Text("Camera", style: TextStyle(fontFamily: "Inter", fontSize: 16)),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 6,
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: const BorderSide(color: Colors.black, width: 2),
+                    ),
+                    shadowColor: const Color(0xFF955306),
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 25),
+            Container(
+              decoration: _customBoxDecoration(),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TextField(
+                controller: ingredientsController,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Enter Ingredients (comma-separated)",
+                ),
+                style: const TextStyle(fontFamily: "Inter", fontSize: 16),
               ),
             ),
-            const SizedBox(height: 10),
-            // Run blackboard.
-              const SizedBox(height: 20),
-              ElevatedButton.icon(
-                onPressed: controller,
-                icon: const Icon(Icons.restaurant),
-                label: const Text('What\'s That Dish?'),
+            const SizedBox(height: 25),
+            Container(
+              decoration: _customBoxDecoration(),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TextField(
+                controller: textController,
+                maxLines: 4,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Describe the Dish",
+                ),
+                style: const TextStyle(fontFamily: "Inter", fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 35), // Increased spacing
+            Center(
+              child: ElevatedButton.icon(
+              onPressed: controller,
+              icon: const Icon(Icons.restaurant),
+              label: Text(
+                "What’s That Dish?",
+                  style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 12.0,
+                  backgroundColor: const Color(0xFF955306),
+                  foregroundColor: Colors.white,
+                  elevation: 6,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: const BorderSide(color: Colors.black, width: 2),
                   ),
+                  shadowColor: Colors.black,
                 ),
               ),
-            const SizedBox(height: 10),
-            // Final Output.
-            Text(
-              'Predicted Dish: $predictedDish\nPrediction Confidence: $confidence',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18),
             ),
+
+            const SizedBox(height: 30),
+            Text("Predicted Dish:", style: GoogleFonts.lobster(fontSize: 20)),
+            Text(predictedDish, style: const TextStyle(fontFamily: "Inter", fontSize: 18)),
+            const SizedBox(height: 10),
+            Text("Prediction Confidence:", style: GoogleFonts.lobster(fontSize: 20)),
+            Text("$confidence", style: const TextStyle(fontFamily: "Inter", fontSize: 18)),
           ],
         ),
       ),
