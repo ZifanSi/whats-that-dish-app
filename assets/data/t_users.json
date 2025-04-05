@@ -1,11 +1,14 @@
 [
-    {
-      "email": "user1@example.com",
-      "password": "123"
-    },
-    {
-      "email": "user2@example.com",
-      "password": "flutterrocks"
-    }
-  ]
-  
+  {
+    "email": "user1@example.com",
+    "password": "123"
+  },
+  {
+    "email": "user2@example.com",
+    "password": "flutterrocks"
+  },
+  {
+    "id": "tanishalovesfood@gmail.com",
+    "password": "#Tanisha1234"
+  }
+]
