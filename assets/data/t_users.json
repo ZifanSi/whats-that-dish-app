@@ -1,14 +1,14 @@
 [
   {
     "email": "user1@example.com",
-    "password": "123"
+    "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3" 
   },
   {
     "email": "user2@example.com",
-    "password": "flutterrocks"
+    "password": "5ec178974650e23b7d42f244868ddbd161b36a18fd5963578276e73ea682795b"
   },
   {
     "id": "tanishalovesfood@gmail.com",
-    "password": "#Tanisha1234"
+    "password": "b3aa0dc7629543d8bb9fc085c2a4f0c59bbdfdd18deaa0a008b2dad21902cf5c"
   }
 ]
