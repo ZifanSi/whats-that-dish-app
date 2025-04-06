@@ -108,104 +108,116 @@ Future<void> controller() async {
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Upload Dish Image:", style: GoogleFonts.lobster(fontSize: 20)),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        child:SingleChildScrollView(
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Upload Dish Image:", style: GoogleFonts.lobster(fontSize: 20)),
+              const SizedBox(height: 12),
+              Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ElevatedButton(
-                  onPressed: () => _pickImage(ImageSource.gallery),
-                  child: Text("Gallery", style: TextStyle(fontFamily: "Inter", fontSize: 16)),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 6,
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: const BorderSide(color: Colors.black, width: 2),
-                    ),
-                    shadowColor: const Color(0xFF955306),
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: () => _pickImage(ImageSource.camera),
-                  child: Text("Camera", style: TextStyle(fontFamily: "Inter", fontSize: 16)),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 6,
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: const BorderSide(color: Colors.black, width: 2),
-                    ),
-                    shadowColor: const Color(0xFF955306),
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                  ),
-                ),
+                // Image input.
+                _image == null
+                    ? const Text('No image selected')
+                    : Image.file(_image!, height: 200),
+                  const SizedBox(height: 10),
               ],
-            ),
-            const SizedBox(height: 25),
-            Container(
-              decoration: _customBoxDecoration(),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                controller: ingredientsController,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Enter Ingredients (comma-separated)",
-                ),
-                style: const TextStyle(fontFamily: "Inter", fontSize: 16),
               ),
-            ),
-            const SizedBox(height: 25),
-            Container(
-              decoration: _customBoxDecoration(),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                controller: textController,
-                maxLines: 4,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Describe the Dish",
-                ),
-                style: const TextStyle(fontFamily: "Inter", fontSize: 16),
-              ),
-            ),
-            const SizedBox(height: 30), // Increased spacing
-            Center(
-              child: ElevatedButton.icon(
-              onPressed: controller,
-              icon: const Icon(Icons.restaurant),
-              label: Text(
-                "What’s That Dish?",
-                  style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF955306),
-                  foregroundColor: Colors.white,
-                  elevation: 6,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    side: const BorderSide(color: Colors.black, width: 2),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _pickImage(ImageSource.gallery),
+                    child: Text("Gallery", style: TextStyle(fontFamily: "Inter", fontSize: 16)),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 6,
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: const BorderSide(color: Colors.black, width: 2),
+                      ),
+                      shadowColor: const Color(0xFF955306),
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    ),
                   ),
-                  shadowColor: Colors.black,
+                  const SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: () => _pickImage(ImageSource.camera),
+                    child: Text("Camera", style: TextStyle(fontFamily: "Inter", fontSize: 16)),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 6,
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: const BorderSide(color: Colors.black, width: 2),
+                      ),
+                      shadowColor: const Color(0xFF955306),
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25),
+              Container(
+                decoration: _customBoxDecoration(),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  controller: ingredientsController,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Enter Ingredients (comma-separated)",
+                  ),
+                  style: const TextStyle(fontFamily: "Inter", fontSize: 16),
                 ),
               ),
-            ),
+              const SizedBox(height: 25),
+              Container(
+                decoration: _customBoxDecoration(),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  controller: textController,
+                  maxLines: 4,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Describe the Dish",
+                  ),
+                  style: const TextStyle(fontFamily: "Inter", fontSize: 16),
+                ),
+              ),
+              const SizedBox(height: 30), // Increased spacing
+              Center(
+                child: ElevatedButton.icon(
+                onPressed: controller,
+                icon: const Icon(Icons.restaurant),
+                label: Text(
+                  "What’s That Dish?",
+                    style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF955306),
+                    foregroundColor: Colors.white,
+                    elevation: 6,
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(color: Colors.black, width: 2),
+                    ),
+                    shadowColor: Colors.black,
+                  ),
+                ),
+              ),
 
-            const SizedBox(height: 30),
-            Text("Predicted Dish:", style: GoogleFonts.lobster(fontSize: 20)),
-            Text(predictedDish, style: const TextStyle(fontFamily: "Inter", fontSize: 18)),
-            const SizedBox(height: 10),
-            Text("Prediction Confidence:", style: GoogleFonts.lobster(fontSize: 20)),
-            Text("$confidence", style: const TextStyle(fontFamily: "Inter", fontSize: 18)),
-          ],
+              const SizedBox(height: 30),
+              Text("Predicted Dish:", style: GoogleFonts.lobster(fontSize: 20)),
+              Text(predictedDish, style: const TextStyle(fontFamily: "Inter", fontSize: 18)),
+              const SizedBox(height: 10),
+              Text("Prediction Confidence:", style: GoogleFonts.lobster(fontSize: 20)),
+              Text("$confidence", style: const TextStyle(fontFamily: "Inter", fontSize: 18)),
+            ],
+            ),
         ),
       ),
     );
