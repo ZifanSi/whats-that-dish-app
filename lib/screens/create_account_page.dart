@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:io';
+import 'package:crypto/crypto.dart';
+import 'dart:convert'; // for the utf8.encode method
 
 
 class CreateAccountPage extends StatefulWidget {
@@ -35,10 +37,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     // Load the current user database.
     List<Map<String, dynamic>> users = await _loadUsers();
 
+    var bytes = utf8.encode(_passwordController.text);
+    var digest = sha256.convert(bytes).toString();
+
     // Create a new user and add to the user database.
     Map<String, dynamic> newUser = {
       "id": _emailController.text,
-      "password": _passwordController.text,
+      "password": digest,
     };
     users.add(newUser);
 

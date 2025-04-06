@@ -10,6 +10,9 @@ import '../components/under_part.dart';
 import '../components/page_title_bar.dart';
 import '../components/upside.dart';
 
+import 'package:crypto/crypto.dart';
+import 'dart:convert'; 
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -32,10 +35,12 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text;
 
+    final digest = sha256.convert(utf8.encode(password)).toString();
+
     final users = await _loadUsers();
 
     final user = users.firstWhere(
-      (u) => u['email'] == email && u['password'] == password,
+      (u) => u['email'] == email && u['password'] == digest,
       orElse: () => {},
     );
 
