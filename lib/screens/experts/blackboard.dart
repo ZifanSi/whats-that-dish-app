@@ -51,13 +51,13 @@ Future<void> controller() async {
   var (ingredientResult, ingredientConfidence) = await ingredientsExpert.predictDish(ingredientsController.text);
 
   if (textConfidence >= 0.5) {
-    // ✅ Prioritize TextExpert if confidence is 50% or above
+    // Prioritize TextExpert if confidence is 50% or above
     setState(() {
       predictedDish = textResult;
       confidence = textConfidence;
     });
   } else {
-    // 🔁 Otherwise, pick the highest among all three experts
+    // Otherwise, pick the highest among all three experts
     if (imageConfidence >= textConfidence &&
         imageConfidence >= ingredientConfidence) {
       setState(() {

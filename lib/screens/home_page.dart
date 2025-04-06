@@ -30,8 +30,8 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 24),
             _buildButton(
               context,
-              text: 'Recommendation Page',
-              routeName: '/recommendation',
+              text: 'View Recipes',
+              routeName: '/view_recipes',
             ),
             const SizedBox(height: 24),
             _buildButton(

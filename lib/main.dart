@@ -6,6 +6,7 @@ import 'screens/create_account_page.dart';
 import 'screens/experts/blackboard.dart';
 import 'screens/recommendations_page.dart';
 import 'screens/recipe_manager.dart';
+import 'screens/view_recipes_page.dart';
 
 Future<void> main() async {
   // Loading the .env file
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         '/homePage': (context) => HomePage(),
         '/create_account': (context) => const CreateAccountPage(),
         '/blackboard': (context) => BlackboardPage(),
-        '/recommendation': (context) => RecommendationsPage(),
+        '/view_recipes': (context) => const ViewRecipesPage(),
         '/AddRecipePage': (context) => AddRecipePage(),
       },
     );
