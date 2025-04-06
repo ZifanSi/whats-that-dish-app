@@ -45,11 +45,19 @@ class _BlackboardPageState extends State<BlackboardPage> {
     }
   }
 
-  Future<void> controller() async {
-    var (imageResult, imageConfidence) = await imageExpert.predictDish(_image);
-    var (textResult, textConfidence) = await textExpert.predictDish(textController.text);
-    var (ingredientResult, ingredientConfidence) = await ingredientsExpert.predictDish(ingredientsController.text);
+Future<void> controller() async {
+  var (imageResult, imageConfidence) = await imageExpert.predictDish(_image);
+  var (textResult, textConfidence) = await textExpert.predictDish(textController.text);
+  var (ingredientResult, ingredientConfidence) = await ingredientsExpert.predictDish(ingredientsController.text);
 
+  if (textConfidence >= 0.5) {
+    // ✅ Prioritize TextExpert if confidence is 50% or above
+    setState(() {
+      predictedDish = textResult;
+      confidence = textConfidence;
+    });
+  } else {
+    // 🔁 Otherwise, pick the highest among all three experts
     if (imageConfidence >= textConfidence &&
         imageConfidence >= ingredientConfidence) {
       setState(() {
@@ -68,6 +76,9 @@ class _BlackboardPageState extends State<BlackboardPage> {
       });
     }
   }
+}
+
+
 
   BoxDecoration _customBoxDecoration() => BoxDecoration(
         color: Colors.white,
